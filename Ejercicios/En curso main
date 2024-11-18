@@ -1,0 +1,116 @@
+package com.example.appprojectom
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.slider.RangeSlider
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var cvTitulo: CardView
+    lateinit var cvHoras: CardView
+    lateinit var tvHoras: TextView
+    lateinit var rsHoras: RangeSlider
+    lateinit var cvNumeroPersonas: CardView
+    lateinit var tvNumeroPersonas: TextView
+    lateinit var tvGastosPersonas: TextView
+    lateinit var btnNumeroPersonasMas: FloatingActionButton
+    lateinit var btnNumeroPersonasMenos: FloatingActionButton
+    lateinit var cvHardware: CardView
+    lateinit var tvUnidadesHardware: TextView
+    lateinit var tvGastosHardware: TextView
+    lateinit var btnHardwareMas: FloatingActionButton
+    lateinit var btnHardwareMenos: FloatingActionButton
+    lateinit var cvDificultad: CardView
+    lateinit var tvDificultad: TextView
+    lateinit var btnBasico: AppCompatButton
+    lateinit var btnAvanzado: AppCompatButton
+    lateinit var btnIntermedio: AppCompatButton
+    lateinit var btnExperto: AppCompatButton
+    lateinit var cvGastoTotal: CardView
+    lateinit var tvGastosTotal: TextView
+
+    var horasfloat:Float= 700.0F
+    var gastoTotal=0
+    var numeroPersonas=0
+    var gastoPersonas=0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        initComponents();
+        initListeners();
+        //inicio();
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun initComponents() {
+        cvTitulo = findViewById(R.id.cvTitulo);
+        cvHoras = findViewById(R.id.cvHoras);
+        tvHoras = findViewById(R.id.tvHoras);
+        rsHoras = findViewById(R.id.rsHoras);
+        cvNumeroPersonas = findViewById(R.id.cvNumeroPersonas);
+        tvNumeroPersonas = findViewById(R.id.tvNumeroPersonas);
+        tvGastosPersonas = findViewById(R.id.tvGastosPersonas);
+        btnNumeroPersonasMas = findViewById(R.id.btnNumeroPersonasMas);
+        btnNumeroPersonasMenos = findViewById(R.id.btnNumeroPersonasMenos);
+        cvHardware = findViewById(R.id.cvHardware);
+        tvUnidadesHardware = findViewById(R.id.tvUnidadesHardware);
+        tvGastosHardware = findViewById(R.id.tvGastosHardware);
+        btnHardwareMas = findViewById(R.id.btnHardwareMas);
+        btnHardwareMenos = findViewById(R.id.btnHardwareMenos);
+        cvDificultad = findViewById(R.id.cvDificultad);
+        tvDificultad = findViewById(R.id.tvDificultad);
+        btnBasico = findViewById(R.id.btnBasico);
+        btnAvanzado = findViewById(R.id.btnAvanzado);
+        btnIntermedio = findViewById(R.id.btnIntermedio);
+        btnExperto = findViewById(R.id.btnExperto);
+        cvGastoTotal = findViewById(R.id.cvGastoTotal);
+        tvGastosTotal = findViewById(R.id.tvGastosTotal);
+    }
+
+    private fun initListeners() {
+        rsHoras.addOnChangeListener { _, value, _ ->
+            horasfloat=value
+            tvHoras.text=horasfloat.toString()
+            sumaTotal()
+        }
+
+        btnNumeroPersonasMas.setOnClickListener(){
+            tvNumeroPersonas.text=numeroPersonas.toString()+" euros"
+            numeroPersonas=numeroPersonas+1
+            gastoTotal=gastoTotal+120
+        }
+    }
+
+    private fun inicio() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private fun sumaTotal() {
+        tvGastosTotal.text="Gastos total: "+gastoTotal
+    }
+
+}
