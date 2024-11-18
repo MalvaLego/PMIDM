@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     var numeroUnidadesHardware=0
     var gastoHardware=0
     var gastoHoras=0
+    var gastoDifucultad=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,23 +136,43 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnBasico.setOnClickListener(){
+            if (gastoDifucultad!=0){
+                gastoTotal=gastoTotal-gastoDifucultad
+                gastoDifucultad=0
+            }
             tvDificultad.text="Básico"
-            gastoTotal=gastoTotal+((gastoTotal/100)*2)
+            gastoDifucultad=(gastoTotal/100)*2
+            gastoTotal=gastoTotal+gastoDifucultad
             sumaTotal()
         }
         btnIntermedio.setOnClickListener(){
+            if (gastoDifucultad!=0){
+                gastoTotal=gastoTotal-gastoDifucultad
+                gastoDifucultad=0
+            }
             tvDificultad.text="Intermedio"
-            gastoTotal=gastoTotal+((gastoTotal/100)*5)
+            gastoDifucultad=(gastoTotal/100)*5
+            gastoTotal=gastoTotal+gastoDifucultad
             sumaTotal()
         }
         btnAvanzado.setOnClickListener(){
+            if (gastoDifucultad!=0){
+                gastoTotal=gastoTotal-gastoDifucultad
+                gastoDifucultad=0
+            }
             tvDificultad.text="Avanzado"
-            gastoTotal=gastoTotal+((gastoTotal/100)*7)
+            gastoDifucultad=(gastoTotal/100)*7
+            gastoTotal=gastoTotal+gastoDifucultad
             sumaTotal()
         }
         btnExperto.setOnClickListener(){
+            if (gastoDifucultad!=0){
+                gastoTotal=gastoTotal-gastoDifucultad
+                gastoDifucultad=0
+            }
             tvDificultad.text="Experto"
-            gastoTotal=gastoTotal+((gastoTotal/100)*10)
+            gastoDifucultad=(gastoTotal/100)*10
+            gastoTotal=gastoTotal+gastoDifucultad
             sumaTotal()
         }
 
@@ -166,15 +187,6 @@ class MainActivity : AppCompatActivity() {
         gastoHardware=0
         tvDificultad.text="___"
     }
-
-
-
-
-
-
-
-
-
 
 
     private fun sumaTotal() {
