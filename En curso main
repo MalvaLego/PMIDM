@@ -1,50 +1,41 @@
-package com.example.appprojectom
+package com.example.appfinanzas
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.RangeSlider
+import com.google.android.material.slider.Slider
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var cvTitulo: CardView
-    lateinit var cvHoras: CardView
-    lateinit var tvHoras: TextView
-    lateinit var rsHoras: RangeSlider
-    lateinit var cvNumeroPersonas: CardView
-    lateinit var tvNumeroPersonas: TextView
-    lateinit var tvGastosPersonas: TextView
-    lateinit var btnNumeroPersonasMas: FloatingActionButton
-    lateinit var btnNumeroPersonasMenos: FloatingActionButton
-    lateinit var cvHardware: CardView
-    lateinit var tvUnidadesHardware: TextView
-    lateinit var tvGastosHardware: TextView
-    lateinit var btnHardwareMas: FloatingActionButton
-    lateinit var btnHardwareMenos: FloatingActionButton
-    lateinit var cvDificultad: CardView
-    lateinit var tvDificultad: TextView
-    lateinit var btnBasico: AppCompatButton
-    lateinit var btnAvanzado: AppCompatButton
-    lateinit var btnIntermedio: AppCompatButton
-    lateinit var btnExperto: AppCompatButton
-    lateinit var cvGastoTotal: CardView
+    lateinit var tvAlquiler: TextView
+    lateinit var tvCoche: TextView
+    lateinit var tvGastosVivienda: TextView
+    lateinit var btnGastosViviendaMas: FloatingActionButton
+    lateinit var btnGastosViviendaMenos: FloatingActionButton
+    lateinit var tvGastosComida: TextView
+    lateinit var btnGastosComidaMas: FloatingActionButton
+    lateinit var btnGastosComidaMenos: FloatingActionButton
+    lateinit var btn100Euros: AppCompatButton
+    lateinit var btn200Euros: AppCompatButton
+    lateinit var btn300Euros: AppCompatButton
+    lateinit var btn400Euros: AppCompatButton
     lateinit var tvGastosTotal: TextView
+    lateinit var rsAlquiler: RangeSlider
+    lateinit var rsCoche: RangeSlider
 
-    var horasfloat:Float= 700F
+    var alquilerfloat:Float= 200.0F
+    var gastoAlquiler=0
+    var cochefloat:Float= 200.0F
+    var GastosVivienda=0
+    var GastosComida=0
     var gastoTotal=0
-    var numeroPersonas=0
-    var gastoPersonas=0
-    var numeroUnidadesHardware=0
-    var gastoHardware=0
-    var gastoHoras=0
-    var gastoDifucultad=0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initComponents();
         initListeners();
-        //inicio();
+        inicio();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -61,44 +52,46 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initComponents() {
-        cvTitulo = findViewById(R.id.cvTitulo);
-        cvHoras = findViewById(R.id.cvHoras);
-        tvHoras = findViewById(R.id.tvHoras);
-        rsHoras = findViewById(R.id.rsHoras);
-        cvNumeroPersonas = findViewById(R.id.cvNumeroPersonas);
-        tvNumeroPersonas = findViewById(R.id.tvNumeroPersonas);
-        tvGastosPersonas = findViewById(R.id.tvGastosPersonas);
-        btnNumeroPersonasMas = findViewById(R.id.btnNumeroPersonasMas);
-        btnNumeroPersonasMenos = findViewById(R.id.btnNumeroPersonasMenos);
-        cvHardware = findViewById(R.id.cvHardware);
-        tvUnidadesHardware = findViewById(R.id.tvUnidadesHardware);
-        tvGastosHardware = findViewById(R.id.tvGastosHardware);
-        btnHardwareMas = findViewById(R.id.btnHardwareMas);
-        btnHardwareMenos = findViewById(R.id.btnHardwareMenos);
-        cvDificultad = findViewById(R.id.cvDificultad);
-        tvDificultad = findViewById(R.id.tvDificultad);
-        btnBasico = findViewById(R.id.btnBasico);
-        btnAvanzado = findViewById(R.id.btnAvanzado);
-        btnIntermedio = findViewById(R.id.btnIntermedio);
-        btnExperto = findViewById(R.id.btnExperto);
-        cvGastoTotal = findViewById(R.id.cvGastoTotal);
+    private fun initComponents(){
+        tvAlquiler = findViewById(R.id.tvAlquiler);
+        tvCoche = findViewById(R.id.tvCoche);
+        tvGastosVivienda = findViewById(R.id.tvGastosVivienda);
+        btnGastosViviendaMas = findViewById(R.id.btnGastosViviendaMas);
+        btnGastosViviendaMenos = findViewById(R.id.btnGastosViviendaMenos);
+        tvAlquiler = findViewById(R.id.tvAlquiler);
+        tvGastosComida = findViewById(R.id.tvGastosComida);
+        btnGastosComidaMas = findViewById(R.id.btnGastosComidaMas);
+        btnGastosComidaMenos = findViewById(R.id.btnGastosComidaMenos);
+        btn100Euros = findViewById(R.id.btn100Euros);
+        btn200Euros = findViewById(R.id.btn200Euros);
+        btn300Euros = findViewById(R.id.btn300Euros);
+        btn400Euros = findViewById(R.id.btn400Euros);
         tvGastosTotal = findViewById(R.id.tvGastosTotal);
+        rsAlquiler= findViewById(R.id.rsAlquiler)
+        rsCoche= findViewById(R.id.rsCoche)
+
     }
 
-    private fun initListeners() {
-        rsHoras.addOnChangeListener { _, value, _ ->
-            if (gastoHoras!=0){
-                gastoTotal=gastoTotal-gastoHoras
-                gastoHoras=0
+    private fun initListeners(){
+        rsAlquiler.addOnChangeListener { _, value, _ ->
+            if (gastoAlquiler!=0){
+                gastoTotal=gastoTotal-gastoAlquiler
+                gastoAlquiler=0
             }
-            horasfloat=value
-            tvHoras.text=horasfloat.toInt().toString()
-            gastoHoras=horasfloat.toInt()
-            gastoTotal=gastoTotal+gastoHoras
+            alquilerfloat=value
+            tvAlquiler.text=alquilerfloat.toInt().toString()
+            gastoAlquiler=alquilerfloat.toInt()
+            gastoTotal=gastoTotal+gastoAlquiler
             sumaTotal()
         }
-        btnNumeroPersonasMas.setOnClickListener(){
+
+        rsCoche.addOnChangeListener { _, value, _ ->
+            cochefloat=value
+            tvCoche.text=cochefloat.toString()
+            sumaTotal()
+        }
+
+        btnGastosViviendaMas.setOnClickListener(){
             numeroPersonas=numeroPersonas+1
             tvNumeroPersonas.text="Personas: "+numeroPersonas.toString()
             gastoTotal=gastoTotal+120
@@ -106,7 +99,8 @@ class MainActivity : AppCompatActivity() {
             tvGastosPersonas.text=gastoPersonas.toString()+" euros"
             sumaTotal()
         }
-        btnNumeroPersonasMenos.setOnClickListener(){
+
+        btnGastosViviendaMenos.setOnClickListener(){
             if (numeroPersonas>0){
                 numeroPersonas=numeroPersonas-1
                 tvNumeroPersonas.text="Personas: "+numeroPersonas.toString()
@@ -116,81 +110,35 @@ class MainActivity : AppCompatActivity() {
                 sumaTotal()
             }
         }
-        btnHardwareMas.setOnClickListener(){
-            numeroUnidadesHardware=numeroUnidadesHardware+1
-            tvUnidadesHardware.text="Hardware: "+numeroUnidadesHardware.toString()+" ud."
-            gastoTotal=gastoTotal+80
-            gastoHardware=gastoHardware+80
-            tvGastosHardware.text=gastoHardware.toString()+" euros"
-            sumaTotal()
-        }
-        btnHardwareMenos.setOnClickListener(){
-            if (numeroUnidadesHardware>0){
-                numeroUnidadesHardware=numeroUnidadesHardware-1
-                tvUnidadesHardware.text="Hardware: "+numeroUnidadesHardware.toString()+" ud."
-                gastoTotal=gastoTotal-80
-                gastoHardware=gastoHardware-80
-                tvGastosHardware.text=gastoHardware.toString()+" euros"
-                sumaTotal()
-            }
+
+        btnGastosComidaMas.setOnClickListener(){
+            gastoTotal=gastoTotal+5
         }
 
-        btnBasico.setOnClickListener(){
-            if (gastoDifucultad!=0){
-                gastoTotal=gastoTotal-gastoDifucultad
-                gastoDifucultad=0
-            }
-            tvDificultad.text="Básico"
-            gastoDifucultad=(gastoTotal/100)*2
-            gastoTotal=gastoTotal+gastoDifucultad
-            sumaTotal()
+        btnGastosComidaMas.setOnClickListener(){
+            gastoTotal=gastoTotal-5
         }
-        btnIntermedio.setOnClickListener(){
-            if (gastoDifucultad!=0){
-                gastoTotal=gastoTotal-gastoDifucultad
-                gastoDifucultad=0
-            }
-            tvDificultad.text="Intermedio"
-            gastoDifucultad=(gastoTotal/100)*5
-            gastoTotal=gastoTotal+gastoDifucultad
-            sumaTotal()
-        }
-        btnAvanzado.setOnClickListener(){
-            if (gastoDifucultad!=0){
-                gastoTotal=gastoTotal-gastoDifucultad
-                gastoDifucultad=0
-            }
-            tvDificultad.text="Avanzado"
-            gastoDifucultad=(gastoTotal/100)*7
-            gastoTotal=gastoTotal+gastoDifucultad
-            sumaTotal()
-        }
-        btnExperto.setOnClickListener(){
-            if (gastoDifucultad!=0){
-                gastoTotal=gastoTotal-gastoDifucultad
-                gastoDifucultad=0
-            }
-            tvDificultad.text="Experto"
-            gastoDifucultad=(gastoTotal/100)*10
-            gastoTotal=gastoTotal+gastoDifucultad
-            sumaTotal()
-        }
+
+
 
     }
 
-    private fun inicio() {
-        gastoTotal=0
-        horasfloat=0F
-        numeroPersonas=0
-        gastoPersonas=0
-        numeroUnidadesHardware=0
-        gastoHardware=0
-        tvDificultad.text="___"
+
+
+
+    private fun inicio(){
+
+
     }
+
+
+
+
 
 
     private fun sumaTotal() {
         tvGastosTotal.text="Gastos total: "+gastoTotal
     }
+
 
 }
