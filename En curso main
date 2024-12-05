@@ -1,49 +1,52 @@
-package com.example.appfinanzas
+package com.example.appbuscapaco
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.slider.RangeSlider
-import com.google.android.material.slider.Slider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    lateinit var btnIniciar: Button
+    lateinit var tvProgreso: TextView
+    lateinit var pbBusca: ProgressBar
+    lateinit var tvPalabra: TextView
+    lateinit var tvResultado: TextView
 
-    lateinit var tvAlquiler: TextView
-    lateinit var tvCoche: TextView
-    lateinit var tvGastosVivienda: TextView
-    lateinit var btnGastosViviendaMas: FloatingActionButton
-    lateinit var btnGastosViviendaMenos: FloatingActionButton
-    lateinit var tvGastosComida: TextView
-    lateinit var btnGastosComidaMas: FloatingActionButton
-    lateinit var btnGastosComidaMenos: FloatingActionButton
-    lateinit var btn100Euros: AppCompatButton
-    lateinit var btn200Euros: AppCompatButton
-    lateinit var btn300Euros: AppCompatButton
-    lateinit var btn400Euros: AppCompatButton
-    lateinit var tvGastosTotal: TextView
-    lateinit var rsAlquiler: RangeSlider
-    lateinit var rsCoche: RangeSlider
+    //pbBusca.progress = factorInt
 
-    var alquilerfloat:Float= 200.0F
-    var gastoAlquiler=0
-    var cochefloat:Float= 200.0F
-    var GastosVivienda=0
-    var GastosComida=0
-    var gastoTotal=0
+    var palabraParaAdivinar="paco"
+    var palabraEnUso=""
+    var numeroProgreso=0
+    var numeroIteraciones=0
+    var numeroSegundos=0
+    var inicialTime = System.currentTimeMillis()
+    var finalTime = System.currentTimeMillis()
+    var abc = arrayOf(
+        "a", "b", "c", "d", "e", "f",
+        "g", "h", "i", "j", "k", "l",
+        "m", "n", "o", "p", "q", "r",
+        "s", "t", "u", "v", "x", "y", "z"
+    )
+    var totalCombinations = 100
+    var currentIteration = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        initComponents();
-        initListeners();
-        inicio();
+        initComponents()
+        initListeners()
+        inicio()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -52,93 +55,87 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initComponents(){
-        tvAlquiler = findViewById(R.id.tvAlquiler);
-        tvCoche = findViewById(R.id.tvCoche);
-        tvGastosVivienda = findViewById(R.id.tvGastosVivienda);
-        btnGastosViviendaMas = findViewById(R.id.btnGastosViviendaMas);
-        btnGastosViviendaMenos = findViewById(R.id.btnGastosViviendaMenos);
-        tvAlquiler = findViewById(R.id.tvAlquiler);
-        tvGastosComida = findViewById(R.id.tvGastosComida);
-        btnGastosComidaMas = findViewById(R.id.btnGastosComidaMas);
-        btnGastosComidaMenos = findViewById(R.id.btnGastosComidaMenos);
-        btn100Euros = findViewById(R.id.btn100Euros);
-        btn200Euros = findViewById(R.id.btn200Euros);
-        btn300Euros = findViewById(R.id.btn300Euros);
-        btn400Euros = findViewById(R.id.btn400Euros);
-        tvGastosTotal = findViewById(R.id.tvGastosTotal);
-        rsAlquiler= findViewById(R.id.rsAlquiler)
-        rsCoche= findViewById(R.id.rsCoche)
+    private fun initComponents() {
+        btnIniciar = findViewById(R.id.btnIniciar)
+        tvProgreso = findViewById(R.id.tvProgreso)
+        pbBusca = findViewById(R.id.pbBusca)
+        tvPalabra = findViewById(R.id.tvPalabra)
+        tvResultado = findViewById(R.id.tvResultado)
 
     }
 
-    private fun initListeners(){
-        rsAlquiler.addOnChangeListener { _, value, _ ->
-            if (gastoAlquiler!=0){
-                gastoTotal=gastoTotal-gastoAlquiler
-                gastoAlquiler=0
+    private fun initListeners() {
+        btnIniciar.setOnClickListener(){
+
+            inicio()
+            btnIniciar.isEnabled=false
+            inicialTime = System.currentTimeMillis()
+            iniciarCalculos()
+        }
+    }
+
+    private fun inicio() {
+        numeroProgreso=0
+        palabraEnUso="p"
+        numeroIteraciones=0
+        currentIteration = 0
+    }
+
+    private fun iniciarCalculos() {
+        val job2 = lifecycleScope.launch {
+
+            for (i in 1..10000){
+                if (!palabraEnUso.equals(palabraParaAdivinar)) {
+                    var randomLetra1 = abc.random()
+                    var randomLetra2 = abc.random()
+                    var randomLetra3 = abc.random()
+                    var randomLetra4 = abc.random()
+
+                    palabraEnUso="pa"+randomLetra3+randomLetra4
+                    numeroIteraciones=numeroIteraciones+1
+
+                    tvPalabra.text="palabra: pa"+randomLetra3+randomLetra4
+                    tvResultado.text="buscando, iteración: "+numeroIteraciones
+                    updateProgress()
+                }else{
+
+                    while (pbBusca.progress<100){
+                        var randomLetra3 = abc.random()
+                        var randomLetra4 = abc.random()
+                        numeroIteraciones=numeroIteraciones+1
+
+                        tvPalabra.text="palabra: pa"+randomLetra3+randomLetra4
+                        tvResultado.text="buscando, iteración: "+numeroIteraciones
+                        updateProgress()
+                        delay(5)
+                    }
+
+                    terminado()
+                    break
+                }
+                delay(5)
+
+                //numeroSegundos=numeroSegundos+1
             }
-            alquilerfloat=value
-            tvAlquiler.text=alquilerfloat.toInt().toString()
-            gastoAlquiler=alquilerfloat.toInt()
-            gastoTotal=gastoTotal+gastoAlquiler
-            sumaTotal()
+
         }
-
-        rsCoche.addOnChangeListener { _, value, _ ->
-            cochefloat=value
-            tvCoche.text=cochefloat.toString()
-            sumaTotal()
-        }
-
-        btnGastosViviendaMas.setOnClickListener(){
-            numeroPersonas=numeroPersonas+1
-            tvNumeroPersonas.text="Personas: "+numeroPersonas.toString()
-            gastoTotal=gastoTotal+120
-            gastoPersonas=gastoPersonas+120
-            tvGastosPersonas.text=gastoPersonas.toString()+" euros"
-            sumaTotal()
-        }
-
-        btnGastosViviendaMenos.setOnClickListener(){
-            if (numeroPersonas>0){
-                numeroPersonas=numeroPersonas-1
-                tvNumeroPersonas.text="Personas: "+numeroPersonas.toString()
-                gastoTotal=gastoTotal-120
-                gastoPersonas=gastoPersonas-120
-                tvGastosPersonas.text=gastoPersonas.toString()+" euros"
-                sumaTotal()
-            }
-        }
-
-        btnGastosComidaMas.setOnClickListener(){
-            gastoTotal=gastoTotal+5
-        }
-
-        btnGastosComidaMas.setOnClickListener(){
-            gastoTotal=gastoTotal-5
-        }
-
-
-
     }
 
+    fun updateProgress() {
+        currentIteration+=3
+        var progress = (currentIteration.toDouble() / totalCombinations ).toInt()
 
-
-
-    private fun inicio(){
-
-
+        pbBusca.progress = progress
+        tvProgreso.text ="Progreso: $progress%"
     }
 
-
-
-
-
-
-    private fun sumaTotal() {
-        tvGastosTotal.text="Gastos total: "+gastoTotal
+    private fun terminado() {
+        btnIniciar.isEnabled=true
+        tvResultado.setBackgroundColor(Color.GREEN)
+        finalTime = System.currentTimeMillis()
+        tvPalabra.text="palabra: "+palabraEnUso
+        tvProgreso.text="Progreso "+pbBusca.progress+"%"
+        tvResultado.text="paco encontrado. Iteración: "+numeroIteraciones.toString()+"\n" +
+                "tiempo total: "+(finalTime.toInt()-inicialTime.toInt())/ 1000.0+" segundos"
     }
-
-
 }
