@@ -1,42 +1,27 @@
-package com.example.appbuscapaco
+package com.example.appcifrado
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ProgressBar
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    lateinit var btnIniciar: Button
-    lateinit var tvProgreso: TextView
-    lateinit var pbBusca: ProgressBar
-    lateinit var tvPalabra: TextView
+
+    lateinit var btnParImpar: Button
+    lateinit var btnCesar: Button
+    lateinit var btnNoCesar: Button
+    lateinit var btnBilateral: Button
+    lateinit var btnNoBilateral: Button
+    lateinit var btnVenegere: Button
+    lateinit var btnNoVenegere: Button
+    lateinit var etFrase: EditText
     lateinit var tvResultado: TextView
-
-    //pbBusca.progress = factorInt
-
-    var palabraParaAdivinar="paco"
-    var palabraEnUso=""
-    var numeroProgreso=0
-    var numeroIteraciones=0
-    var numeroSegundos=0
-    var inicialTime = System.currentTimeMillis()
-    var finalTime = System.currentTimeMillis()
-    var abc = arrayOf(
-        "a", "b", "c", "d", "e", "f",
-        "g", "h", "i", "j", "k", "l",
-        "m", "n", "o", "p", "q", "r",
-        "s", "t", "u", "v", "x", "y", "z"
-    )
-    var totalCombinations = 100
-    var currentIteration = 0
+    lateinit var btnCriptogramaAFrase: Button
+    lateinit var btnTextoAFrase: Button
 
 
 
@@ -44,9 +29,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        initComponents()
-        initListeners()
-        inicio()
+        initComponents();
+        initListeners();
+        inicio();
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -55,87 +41,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initComponents() {
-        btnIniciar = findViewById(R.id.btnIniciar)
-        tvProgreso = findViewById(R.id.tvProgreso)
-        pbBusca = findViewById(R.id.pbBusca)
-        tvPalabra = findViewById(R.id.tvPalabra)
-        tvResultado = findViewById(R.id.tvResultado)
-
+    private fun initComponents(){
+        btnParImpar=findViewById(R.id.btnParImpar);
+        btnCesar=findViewById(R.id.btnCesar);
+        btnNoCesar=findViewById(R.id.btnNoCesar);
+        btnBilateral=findViewById(R.id.btnBilateral);
+        btnNoBilateral=findViewById(R.id.btnNoBilateral);
+        btnVenegere=findViewById(R.id.btnVenegere);
+        btnNoVenegere=findViewById(R.id.btnNoVenegere);
+        etFrase=findViewById(R.id.etFrase);
+        tvResultado=findViewById(R.id.tvResultado);
+        btnCriptogramaAFrase=findViewById(R.id.btnCriptogramaAFrase);
+        btnTextoAFrase=findViewById(R.id.btnTextoAFrase);
     }
 
-    private fun initListeners() {
-        btnIniciar.setOnClickListener(){
-
-            inicio()
-            btnIniciar.isEnabled=false
-            inicialTime = System.currentTimeMillis()
-            iniciarCalculos()
+    private fun initListeners(){
+        btnParImpar.setOnClickListener(){
+            inicio();
         }
+
     }
 
-    private fun inicio() {
-        numeroProgreso=0
-        palabraEnUso="p"
-        numeroIteraciones=0
-        currentIteration = 0
+    private fun inicio(){
+        tvResultado.text="hola"
     }
 
-    private fun iniciarCalculos() {
-        val job2 = lifecycleScope.launch {
 
-            for (i in 1..10000){
-                if (!palabraEnUso.equals(palabraParaAdivinar)) {
-                    var randomLetra1 = abc.random()
-                    var randomLetra2 = abc.random()
-                    var randomLetra3 = abc.random()
-                    var randomLetra4 = abc.random()
 
-                    palabraEnUso="pa"+randomLetra3+randomLetra4
-                    numeroIteraciones=numeroIteraciones+1
 
-                    tvPalabra.text="palabra: pa"+randomLetra3+randomLetra4
-                    tvResultado.text="buscando, iteración: "+numeroIteraciones
-                    updateProgress()
-                }else{
-
-                    while (pbBusca.progress<100){
-                        var randomLetra3 = abc.random()
-                        var randomLetra4 = abc.random()
-                        numeroIteraciones=numeroIteraciones+1
-
-                        tvPalabra.text="palabra: pa"+randomLetra3+randomLetra4
-                        tvResultado.text="buscando, iteración: "+numeroIteraciones
-                        updateProgress()
-                        delay(5)
-                    }
-
-                    terminado()
-                    break
-                }
-                delay(5)
-
-                //numeroSegundos=numeroSegundos+1
-            }
-
-        }
-    }
-
-    fun updateProgress() {
-        currentIteration+=3
-        var progress = (currentIteration.toDouble() / totalCombinations ).toInt()
-
-        pbBusca.progress = progress
-        tvProgreso.text ="Progreso: $progress%"
-    }
-
-    private fun terminado() {
-        btnIniciar.isEnabled=true
-        tvResultado.setBackgroundColor(Color.GREEN)
-        finalTime = System.currentTimeMillis()
-        tvPalabra.text="palabra: "+palabraEnUso
-        tvProgreso.text="Progreso "+pbBusca.progress+"%"
-        tvResultado.text="paco encontrado. Iteración: "+numeroIteraciones.toString()+"\n" +
-                "tiempo total: "+(finalTime.toInt()-inicialTime.toInt())/ 1000.0+" segundos"
-    }
 }
