@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_style"
         android:textStyle=""
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:layout_marginTop="18dp"
         />
 
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_style"
         android:textStyle=""
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:layout_marginTop="18dp"
         />
 
@@ -124,9 +124,9 @@
         android:text="Criptograma a frase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_style"
+        android:background="@drawable/button_text"
         android:textStyle=""
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:layout_marginTop="18dp"
         />
 
@@ -135,9 +135,9 @@
         android:text="Fall seven times a frase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/button_text"
         android:textStyle=""
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:layout_marginTop="18dp"
         />
 
