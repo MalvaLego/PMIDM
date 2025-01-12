@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         tvResultado.text=criptograma
     }
 
+    //Criptación César
     fun criptCesar(frase : String) {
         var frase_len: Int = 0
         var orden_natural = IntArray(1000)
@@ -229,25 +230,61 @@ class MainActivity : AppCompatActivity() {
         tvResultado.text=criptograma
     }
 
+    //Crptación Venegere
     fun criptVenegere(frase : String) {
         var clave = "run"
         var frase_len: Int = 0
-        var orden_natural = IntArray(1000)
-        var orden_cripto = IntArray(1000)
+        var clave_len: Int = 0
 
-        val abcVenegere: String = "abcdefghijklmnñopqrstuvwxyz"
+        var orden_criptoFrase = IntArray(1000)
+        var orden_criptoClave = IntArray(1000)
+        var orden_cripto=IntArray(1000)
+
+        val abcVenegere: String = "abcdefghijklmnñopqrstuvwxyz ."
         val abcVenegere_len: Int = abcVenegere.length
 
         frase_len = frase.length
+        clave_len=clave.length
+
+        for (i in 0..frase_len -1) {
+            for (j in 0..abcVenegere_len -1) {
+                if (frase[i] == abcVenegere[j]) {
+                    orden_criptoFrase[i]=j
+                }
+            }
+        }
+
+        for (i in 0..frase_len -1) {
+            val letraClave = i % clave_len
+            for (j in 0..abcVenegere_len -1) {
+                if (clave[letraClave]== abcVenegere[j]){
+                    orden_criptoClave[i]=j
+                }
+            }
+        }
+
+
+        //for (i in 0..frase_len - 1) {
+          //  orden_cripto[i]=(orden_criptoFrase[i]+orden_criptoClave[i]) % abcVenegere_len
+        //}
 
         for (i in 0..frase_len - 1) {
-            for (j in 0..abcVenegere_len - 1) {
-                if (frase[i] == abcVenegere[j]) {
-                    val letraClave = i % clave.length
-                    val sumar = abcVenegere.indexOf(clave[letraClave]) + 1
-
-                    orden_natural[i] = j
-                    orden_cripto[i] =(j+sumar) % abcVenegere_len
+            if (i%3==0){
+                orden_cripto[i]=(orden_criptoFrase[i]+orden_criptoClave[i]) % abcVenegere_len
+                if (orden_cripto[i]>=abcVenegere_len){
+                    orden_cripto[i]=orden_cripto[i]-abcVenegere_len
+                }
+            }
+            if (i%3==1){
+                orden_cripto[i]=(orden_criptoFrase[i]+orden_criptoClave[i]) % abcVenegere_len
+                if (orden_cripto[i]>=abcVenegere_len){
+                    orden_cripto[i]=orden_cripto[i]-abcVenegere_len
+                }
+            }
+            if (i%3==2){
+                orden_cripto[i]=(orden_criptoFrase[i]+orden_criptoClave[i]) % abcVenegere_len
+                if (orden_cripto[i]>=abcVenegere_len){
+                    orden_cripto[i]=orden_cripto[i]-abcVenegere_len
                 }
             }
         }
@@ -261,24 +298,37 @@ class MainActivity : AppCompatActivity() {
     fun desencriptVenegere(frase : String) {
         var clave = "run"
         var frase_len: Int = 0
-        var orden_natural = IntArray(1000)
-        var orden_cripto = IntArray(1000)
+        var clave_len: Int = 0
 
-        val abcVenegere: String = "abcdefghijklmnñopqrstuvwxyz"
+        var orden_criptoFrase = IntArray(1000)
+        var orden_criptoClave = IntArray(1000)
+        var orden_cripto=IntArray(1000)
+
+        val abcVenegere: String = "abcdefghijklmnñopqrstuvwxyz ."
         val abcVenegere_len: Int = abcVenegere.length
 
         frase_len = frase.length
+        clave_len=clave.length
 
-        for (i in 0..frase_len - 1) {
-            for (j in 0..abcVenegere_len - 1) {
+        for (i in 0..frase_len -1) {
+            for (j in 0..abcVenegere_len -1) {
                 if (frase[i] == abcVenegere[j]) {
-                    val letraClave = i % clave.length
-                    val sumar = abcVenegere.indexOf(clave[letraClave]) + 1
-
-                    orden_natural[i] = j
-                    orden_cripto[i] =(j-sumar+ abcVenegere_len) % abcVenegere_len
+                    orden_criptoFrase[i]=j
                 }
             }
+        }
+
+        for (i in 0..frase_len -1) {
+            val letraClave = i % clave_len
+            for (j in 0..abcVenegere_len -1) {
+                if (clave[letraClave]== abcVenegere[j]){
+                    orden_criptoClave[i]=j
+                }
+            }
+        }
+
+        for (i in 0..frase_len - 1) {
+          orden_cripto[i]=(orden_criptoFrase[i]-orden_criptoClave[i] + abcVenegere_len) %abcVenegere_len
         }
 
         var criptograma = ""
