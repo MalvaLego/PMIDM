@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText"
+    android:background="@drawable/fondo"
+    >
+
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+         />
+
+    <TextView
+        android:id="@+id/nombreJuego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_toEndOf="@+id/hello"
+        android:text="Juego botones"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+         />
+
+    <TextView
+        android:id="@+id/suerte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentEnd="true"
+        android:text="Buena suerte"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/explicacion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/hello"
+        android:layout_centerInParent="true"
+        android:text="En este juego hay que apretar los botones muy rápido"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/explicacion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/explicacion1"
+        android:text="Antes de que se acabe el tiempo"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/explicacion3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/explicacion1"
+        android:layout_marginRight="20dp"
+        android:text="El más rápido gana"
+        android:textStyle="bold"
+        />
+
+    <Button
+        android:id="@+id/btnJugar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/explicacion3"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="Empezar a Jugar"
+        android:background="@drawable/buttons"
+        />
+
+    <TextView
+        android:id="@+id/tvTiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnJugar"
+        android:layout_marginRight="20dp"
+        android:text="Tiemo restante: 10 segundos"
+        android:textStyle="bold"
+        android:background="@color/red"
+        android:textSize="17dp"
+        />
+
+    <TextView
+        android:id="@+id/tvJugadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTiempo"
+        android:text="Jugadas totales: 0 botones"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="17dp"
+        />
+
+    <Button
+        android:id="@+id/btn01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvJugadas"
+        android:layout_alignParentStart="true"
+        android:text="Puls01"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvJugadas"
+        android:layout_centerHorizontal="true"
+        android:text="Puls02"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvJugadas"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:text="Puls03"
+        android:background="@drawable/buttons"
+        />
+    // android:layout_toRightOf="@+id/btn2"
+    // ---------------------------------
+    <Button
+        android:id="@+id/btn04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn02"
+        android:text="Puls04"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn02"
+        android:layout_centerHorizontal="true"
+        android:text="Puls05"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn06"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn02"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:text="Puls06"
+        android:background="@drawable/buttons"
+        />
+
+    // ---------------------------------
+    <Button
+        android:id="@+id/btn07"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn05"
+        android:layout_alignParentStart="true"
+        android:text="Puls07"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn08"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn05"
+        android:layout_centerHorizontal="true"
+        android:text="Puls08"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn09"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn05"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:text="Puls09"
+        android:background="@drawable/buttons"
+        />
+
+    // ---------------------------------
+    <Button
+        android:id="@+id/btn10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn08"
+        android:layout_alignParentStart="true"
+        android:text="Puls10"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn08"
+        android:layout_centerHorizontal="true"
+        android:text="Puls11"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btn12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn08"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:text="Puls12"
+        android:background="@drawable/buttons"
+        />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn11"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="Reset"
+        android:background="@drawable/buttons"
+        />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnReset"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+    />
+
+    <TextView
+        android:id="@+id/tvMejorPuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Récord de puntos\n Best: "
+        android:layout_below="@+id/etNombre"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:background="@color/yellow"
+    />
+
+    <TextView
+        android:id="@+id/tvUltimos5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvMejorPuntuacion"
+        android:text="Últimas jugadas\n"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:background="@color/orange"
+    />
+
+
+
+
+
+</RelativeLayout>

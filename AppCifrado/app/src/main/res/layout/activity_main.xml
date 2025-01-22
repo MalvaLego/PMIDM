@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esta es la página de inicio"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btnParImpar"
+        android:text="Cifrado Trans Par-Impar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnCesar"
+        android:text="Cifrado César"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnNoCesar"
+        android:text="Descifrado César"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/button_descifrado"
+        android:textStyle=""
+        android:textSize="23dp"
+        />
+
+    <Button
+        android:id="@+id/btnBilateral"
+        android:text="Cifrado Bilateral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnNoBilateral"
+        android:text="Descifrado Bilateral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_descifrado"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnVenegere"
+        android:text="Cifrado Venegere"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnNoVenegere"
+        android:text="Descifrado Venegere"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_descifrado"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <EditText
+        android:id="@+id/etFrase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Escribe algo..."
+        android:textColor="#000000"
+        android:textColorHint="#999999"
+        android:background="#FFFFFF"
+        android:padding="12dp"
+        android:elevation="2dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        android:id="@+id/tvResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="14dp"
+        android:textSize="20dp"
+        />
+
+    <Button
+        android:id="@+id/btnCriptogramaAFrase"
+        android:text="Criptograma a frase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_text"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+    <Button
+        android:id="@+id/btnTextoAFrase"
+        android:text="Fall seven times a frase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_text"
+        android:textStyle=""
+        android:textSize="23dp"
+        android:layout_marginTop="18dp"
+        />
+
+
+</LinearLayout>
